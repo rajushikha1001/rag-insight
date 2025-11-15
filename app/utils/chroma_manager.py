@@ -1,5 +1,4 @@
-# app/utils/chroma_manager.py
-from chromadb import Client, Settings  # <- correct import
+from chromadb import Client, Settings
 
 def get_chroma():
     client = Client(
@@ -8,4 +7,11 @@ def get_chroma():
             persist_directory="./chroma"
         )
     )
+
+    # Create collection if it doesn't exist
+    try:
+        collection = client.get_collection("rag_insight")
+    except Exception:  # NotFoundError
+        collection = client.create_collection("rag_insight")
+
     return client
