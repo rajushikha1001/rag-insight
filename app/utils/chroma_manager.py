@@ -1,10 +1,12 @@
-from chromadb import Client
+from chromadb.client import Chroma
 from chromadb.config import Settings
-from app.config import CHROMA_DB_DIR
 
 def get_chroma():
-    client = Client(Settings(
-        chroma_db_impl="duckdb+parquet",
-        persist_directory=CHROMA_DB_DIR
-    ))
+    # Create Chroma client with new API
+    client = Chroma(
+        persist_directory="./chroma",
+        settings=Settings(
+            chroma_api_impl="chromadb.api.rust.RustBindingsAPI"
+        )
+    )
     return client
