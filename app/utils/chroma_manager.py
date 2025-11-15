@@ -1,12 +1,11 @@
-from chromadb.client import Chroma
-from chromadb.config import Settings
+# app/utils/chroma_manager.py
+from chromadb import Client, Settings  # <- correct import
 
 def get_chroma():
-    # Create Chroma client with new API
-    client = Chroma(
-        persist_directory="./chroma",
-        settings=Settings(
-            chroma_api_impl="chromadb.api.rust.RustBindingsAPI"
+    client = Client(
+        Settings(
+            chroma_api_impl="chromadb.api.rust.RustBindingsAPI",
+            persist_directory="./chroma"
         )
     )
     return client
